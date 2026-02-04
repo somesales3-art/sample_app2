@@ -54,12 +54,11 @@ class UserTest < ActiveSupport::TestCase
     @user.password = @user.password_confirmation = 'a' * 5
     assert_not @user.valid?
   end
-end
 
 test 'new_token should return a string' do
   token = User.new_token
   assert token.is_a?(String)
-end
+ end
 
 test 'new_token should return a non-empty string' do
   token = User.new_token
@@ -70,4 +69,8 @@ test 'new_token should return a different value each time' do
   token1 = User.new_token
   token2 = User.new_token
   assert_not_equal token1, token2
+end
+  test "authenticated? should return false for a user with nil digest" do
+    assert_not @user.authenticated?('')
+  end
 end
