@@ -70,4 +70,7 @@ test 'new_token should return a different value each time' do
   token2 = User.new_token
   assert_not_equal token1, token2
 end
+  test "authenticated? should return false for a user with nil digest" do
+    assert_not @user.authenticated?('')
+  end
 end

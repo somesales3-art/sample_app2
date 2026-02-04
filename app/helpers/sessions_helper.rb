@@ -2,6 +2,7 @@ module SessionsHelper
   def log_in(user)
     session[:user_id] = user.id
   end
+
   def remember(user)
     user.remember
     cookies.permanent.encrypted[:user_id] = user.id
@@ -17,7 +18,7 @@ module SessionsHelper
         log_in user
         @current_user = user
       end
-    end  
+    end
   end
 
   def logged_in?
@@ -31,7 +32,6 @@ module SessionsHelper
   end
 
   def log_out
-    forget(current_user)
     reset_session
     @current_user = nil
   end
