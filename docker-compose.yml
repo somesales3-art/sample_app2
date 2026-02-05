@@ -2,22 +2,18 @@ services:
   app:
     build: .
     tty: true
+    stdin_open: true
     ports:
       - 3000:3000
     volumes:
       - .:/app
       - bundle_data:/usr/local/bundle
-      
-      # --- Neovim 設定とデータの永続化 ---
-      # ホスト側の nvim_config フォルダをコンテナの設定として使う
-      - ./nvim_config:/root/.config/nvim
-      
-      # プラグインのデータをDockerボリュームに保存（再起動しても消えないようにする）
+
+      # --- すべて名前付きボリュームに変更 ---
+      - nvim_config:/root/.config/nvim
       - nvim_data:/root/.local/share/nvim
-      
-      # ログや状態データを保存
       - nvim_state:/root/.local/state/nvim
-      
+
     command: >
       bash -c "rm -f tmp/pids/server.pid &&
       bundle install &&
@@ -27,5 +23,6 @@ services:
 
 volumes:
   bundle_data:
-  nvim_data:  # プラグイン保存用
-  nvim_state: # 状態保存用
+  nvim_config: # ← 追加：設定ファイル用の箱
+  nvim_data:
+  nvim_state:
