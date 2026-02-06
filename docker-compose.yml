@@ -8,12 +8,9 @@ services:
     volumes:
       - .:/app
       - bundle_data:/usr/local/bundle
-
-      # --- すべて名前付きボリュームに変更 ---
-      - nvim_config:/root/.config/nvim
+      - ./nvim:/root/.config/nvim
       - nvim_data:/root/.local/share/nvim
       - nvim_state:/root/.local/state/nvim
-
     command: >
       bash -c "rm -f tmp/pids/server.pid &&
       bundle install &&
@@ -23,6 +20,5 @@ services:
 
 volumes:
   bundle_data:
-  nvim_config: # ← 追加：設定ファイル用の箱
   nvim_data:
   nvim_state:
