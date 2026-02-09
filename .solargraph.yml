@@ -5,6 +5,15 @@ exclude:
   - test/**/*
   - vendor/**/*
   - ".bundle/**/*"
-  - tmp/**/*
-reporters: []
-typecheck: false
+require:
+  - actioncable
+  - actionmailer
+  - actionpack
+  - actionview
+  - activejob
+  - activemodel
+  - activerecord
+  - activestorage
+  - activesupport
+plugins:
+  - solargraph-rails
