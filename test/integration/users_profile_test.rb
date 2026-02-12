@@ -19,4 +19,12 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
       assert_match micropost.content, response.body
     end
   end
+  test 'home stats' do
+    log_in_as(@user)
+    get root_path(@user)
+    assert_template 'static_pages/home'
+    assert_select 'div.stats'
+    assert_select '#following', text: @user.following.count.to_s
+    assert_select '#followers', text: @user.followers.count.to_s
+  end
 end
